@@ -17,28 +17,35 @@ const processRequest = (req, res) => {
 
 
 
-    // if(req.url.startsWith("/save"))
-    // {
-    //     let body="";
-    //     req.on("data",(chunk)=>{
-    //         body+=chunk;
-    //     })
-    //     req.on("end",()=>{
-    //         //console.log(body);
+    if(parsedUrl.pathname=="/save" && req.method=="POST")
+    {
+        let body="";
+        req.on("data",(chunk)=>{
+            body+=chunk;
+        })
+        req.on("end",()=>{
+            //console.log(body);
+            console.log(body);
+            const parse=new URLSearchParams(body);//parse.get
+            //console.log(parse.get("username"));
+const parsedData=Object.fromEntries(parse);//parsedData object key/value;
 
-    //         res.end();
-    //     })
-
-    //     //console.log(req.method);
-    //     //res.write("Welcome "+parsedUrl.query.username);
-    //     //res.write(JSON.stringify({}));
-
-    //     //res.end();
+console.log(parsedData);
 
 
+            res.end();
+        })
 
-    // }
-    if(parsedUrl.pathname=="/save")
+        //console.log(req.method);
+        //res.write("Welcome "+parsedUrl.query.username);
+        //res.write(JSON.stringify({}));
+
+        //res.end();
+
+
+
+    }
+   else if(parsedUrl.pathname=="/save")
     {
         let users=[];
         fs.readFile("users.json","utf-8",(err,data)=>{
