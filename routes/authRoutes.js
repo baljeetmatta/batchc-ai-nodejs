@@ -5,8 +5,17 @@ const path=require("path");
 
 
 routes.get("/dashboard",(req,res)=>{
+  //  if(req.session.user)
     res.sendFile(path.join(__dirname,"../public/dashboard.html"));
+// else
+//     res.redirect("/user/login");
 
+
+})
+routes.get("/logout",(req,res)=>{
+    req.session.destroy();
+    res.redirect("/user/login");
+    
 })
 //req.query->get, req.body->post, req.params ->Dynmaic paramater
 routes.get("/dynamic/:x",(req,res)=>{

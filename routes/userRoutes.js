@@ -6,6 +6,9 @@ const fs=require("fs");
 
 
 routes.get("/login",(req,res)=>{
+    if(req.session.user)
+        res.redirect("/auth/dashboard");
+    else
     res.sendFile(path.join(__dirname,"../public/login.html"));
 
 })
@@ -64,6 +67,8 @@ routes.post("/login",(req,res)=>{
                 })
                 if(results.length!=0)
                 {
+                    req.session.user=req.body.username;
+
                     res.redirect("/auth/dashboard")
                    // res.send("User already exists");
 
